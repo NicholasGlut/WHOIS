@@ -10,12 +10,14 @@ while True:
     if domain == 'exit':
         break
 
+    # Attempts to connect to domain
     try:
         socket.gethostbyname(domain)
     except socket.gaierror:
         print(f'Unable to connect to {domain}. Please try again.')
         continue
 
+    # Gathers and iterates through all data and prints them
     try:
         data = whois.whois(domain)
         data_dict={}
@@ -27,7 +29,7 @@ while True:
                 "terms" not in str(attr).lower() and 
                 not attr.startswith('_')):
                 data_dict[attr] = value
-        for key, value in data_dict.items():
-            print(f"{key} : {value}")
+                print(f"{attr} : {value}")
+            
     except Exception as e:
         print(f"WHOIS lookup failed for {domain}: {e}")
